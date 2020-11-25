@@ -1,0 +1,157 @@
+#include "classboard.h"
+#include <iostream>
+using namespace std;
+classboard::classboard(){
+  isWin=0;
+  noWin=0;
+  maxcol=3;
+  for(int i=0;i<5;i++){ //поле
+    for(int j=0;j<5;j++){
+      board[i][j]=0;
+    }
+  }
+}
+bool classboard::makemove (int x, int y, int sign){
+ 
+    
+     if(!((x>-1 && x<maxcol) && (y>-1 && y<maxcol ) && (sign>0 && sign<3))) return 1; 
+     
+    isWin=0;
+    noWin++;
+    x++;//
+    y++;//устанавливаем ячейку на 0
+    //проверка занятости и вывод
+    if (board[x][y]==0){
+      board [x][y]=sign;    
+      //  printGomoke(board,maxcol);
+      int flagProv=1;
+      //проверка на выигрыш
+      
+      if (board[x-1][y]==board[x][y]&& flagProv==1){      //проверка меньше y
+	for(int i=0;i>(-1*maxcol-1);i--){
+	  
+	if (board[x+i][y]!=board[x][y]){
+	  
+	  i=(-1*maxcol-1);
+	  isWin--;
+	}
+	isWin++;
+	}
+	
+      for (int i=1;i<maxcol+1;i++){
+	
+	if (board[x+i][y]!=board[x][y]){
+	  i=maxcol+1;
+	  isWin--;
+	}
+	isWin++;
+       }
+      flagProv=0;
+      }
+      
+      if (board[x+1][y]==board[x][y]&& flagProv==1){
+	// проверка больше y
+        for(int i=0;i<(maxcol+1);i++){
+	  
+	if (board[x+i][y]!=board[x][y]){
+	  
+	  i=(maxcol+1);
+          isWin--;
+	}
+	isWin++;
+	}
+	for (int i=-1;i>(-1*maxcol-1);i--){
+	
+	  if (board[x+i][y]!=board[x][y]){
+	    i=(-1*maxcol-1);
+	    isWin--;
+	  }
+	  isWin++;	
+	}
+	flagProv=0;
+      }
+      
+      if (board[x-1][y-1]==board[x][y]){      //прверка меньше по диагонали
+	
+	for(int i=0;i>(-1*maxcol-1);i--){
+	  
+	  if (board[x+i][y+i]!=board[x][y]){    
+	    
+	    i=(-1*maxcol-1);
+	    isWin--;
+          }
+	  isWin++;
+	}
+	for (int i=1;i<maxcol+1;i++){
+	  
+	  if (board[x+i][y+i]!=board[x][y]){
+	    i=maxcol+1;
+	    isWin--;
+	  }
+	  isWin++;	
+	}
+	flagProv=0;
+	
+      }
+      
+      if (board[x+1][y+1]==board[x][y]){  //проверка больше диагонали
+	
+	for(int i=0;i<(maxcol+1);i++){
+	  
+	  if (board[x+i][y+i]!=board[x][y]){
+	    
+	    i=maxcol+1;
+	    isWin--;
+	  }
+	  isWin++;
+       }
+	for (int i=-1;i>(-1*maxcol-1);i--){
+	  
+           if (board[x+i][y+i]!=board[x][y]){
+	     i=(-1*maxcol-1);
+	     isWin--;
+	   }
+	   isWin++;	
+	}
+	flagProv=0;
+      }
+      
+      /*  if (isWin==3){                            //проверка выигрыша
+
+	
+	if (board[x][y]==1){
+	  cout<<" X "<<"WIN!!!"<<endl;
+	}
+	else {
+	  cout<<" O "<<"WIN!!!"<<endl;
+	  return 0;
+	}
+      }
+      if (noWin==maxcol*maxcol)
+	{
+	  cout<<"NO WIN"<<endl;;
+	  return 0;
+	}
+      isWin=0;*/
+      cout<<"iswin classboard"<<isWin<<endl;
+    }
+    
+    else {
+      return 1;
+   
+    
+     }
+  
+ return 0;
+
+}
+int classboard::getisWin(){
+  return isWin;
+}
+int classboard::getcell(int x, int y){
+
+  return board[x+1][y+1];
+}
+int classboard::getnoWin(){
+  return noWin;
+}

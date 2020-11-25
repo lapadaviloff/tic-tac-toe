@@ -1,0 +1,5 @@
+#include "classview.h"
+classview::classview (classboard *b){
+  board =b;
+
+} 
